@@ -23,8 +23,17 @@ post('organizations/login', 'OrganizationsController@loginuser');
 
 
 Route::group(['before' => 'organizationauth'], function () {
-    get('organizations/first-signin', 'OrganizationsController@firstsignin');
-   
+    get('organizations/first-signin/{id}', 'OrganizationsController@firstsignin');
+    post('organizations/first-signin/storeorgdetails', 'OrganizationsController@storeorgdetails');
+
+    get('organizations/first-signin/work-days/{id}', 'OrganizationsController@workdays');
+    post('organizations/work-days/store', 'OrganizationsController@workdaysstore');
+
+    get('organizations/first-signin/rest-times/{id}', 'OrganizationsController@resttimes');
+    post('organizations/first-signin/rest-times/store', 'OrganizationsController@storeresttimes');
+
+    get('organizations/first-signin/background/{id}', 'OrganizationsController@background');
+    post('organizations/first-signin/background/store', 'OrganizationsController@backgroundstore');
 });
 
 Route::group(['before' => 'userauth'], function () {
@@ -36,18 +45,16 @@ Route::group(['before' => 'userauth'], function () {
     get('system-user/users-list', 'SystemUserController@userslist');
 
 
-    
+
     get('organizations/create', 'OrganizationsController@create');
     post('organizations/store', 'OrganizationsController@store');
     get('organizations/organizations-list', 'OrganizationsController@organizationlist');
-
-   
 });
 
- get('logout', function () {
-        \Auth::logout();
-        return redirect()->back();
-    });
+get('logout', function () {
+    \Auth::logout();
+    return redirect()->back();
+});
 
 get('count', function () {
     $org = \DB::table('organization_details')

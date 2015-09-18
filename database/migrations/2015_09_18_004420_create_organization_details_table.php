@@ -20,9 +20,7 @@ class CreateOrganizationDetailsTable extends Migration {
 			$table->integer('organization')->unsigned();
 			$table->integer('appointment_duration');
 			$table->integer('appointment_rest');
-			
                         $table->string('phone');
-                        $table->string('email');
 		});
 	}
 

@@ -83,6 +83,17 @@ organizations
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">email </label>
+                        <div class="col-md-6 col-sm-9 col-xs-12">
+                            <input type="email" 
+                                   required=""
+                                   value="{{old('email') }}"
+                                   name="email"
+                                   class="form-control" 
+                                   placeholder="user email">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">password </label>
                         <div class="col-md-3 col-sm-9 col-xs-12">
                             <input type="password" 
