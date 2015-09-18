@@ -16,11 +16,18 @@ get('/', 'SystemUserController@login');
 get('login', 'SystemUserController@login');
 post('login', 'SystemUserController@loginuser');
 
-get('page', function () {
-    return view('pages.organizations.lists');
-    });
 
-Route::group(['middleware' => 'auth'], function () {
+
+get('organizations/login', 'OrganizationsController@login');
+post('organizations/login', 'OrganizationsController@loginuser');
+
+
+Route::group(['before' => 'organizationauth'], function () {
+    get('organizations/first-signin', 'OrganizationsController@firstsignin');
+   
+});
+
+Route::group(['before' => 'userauth'], function () {
     get('home', 'HomeController@index');
 
     get('system-user', 'SystemUserController@index');
@@ -29,15 +36,28 @@ Route::group(['middleware' => 'auth'], function () {
     get('system-user/users-list', 'SystemUserController@userslist');
 
 
+    
     get('organizations/create', 'OrganizationsController@create');
     post('organizations/store', 'OrganizationsController@store');
+    get('organizations/organizations-list', 'OrganizationsController@organizationlist');
 
-    get('login', function () {
-        \Auth::logout();
-         return redirect()->back();
-    });
+   
 });
 
+ get('logout', function () {
+        \Auth::logout();
+        return redirect()->back();
+    });
+
+get('count', function () {
+    $org = \DB::table('organization_details')
+            ->where('organization_details.organization', '=', 2)
+            ->get(['id']);
+
+    if ($org != null) {
+        echo $org[0]->id;
+    }
+});
 
 
 

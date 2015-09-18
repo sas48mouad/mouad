@@ -40,6 +40,7 @@ class SystemUserController extends Controller {
     }
 
     public function loginuser(Request $request) {
+      
         $rules = [
             'email' => 'required|email',
             'password' => 'required'
@@ -58,13 +59,13 @@ class SystemUserController extends Controller {
 
 
         if ($request->has('password') && $request->has('email')) {
-            if (\Auth::attempt(['email' => $request->input('email'),
+            if (\Auth::user()->attempt(['email' => $request->input('email'),
                         'password' => $request->input('password')])) {
 
                 //                 Authentication passed...
-                if (\Auth::user()->type == 0) {
+                if (\Auth::user()->get()->type == 0) {
                     $userinfo = \DB::table('system_user')
-                            ->where('system_user.user', '=', \Auth::user()->id)
+                            ->where('system_user.user', '=', \Auth::user()->get()->id)
                             ->get();
                     session()->put('userinfo', $userinfo);
                     return redirect()->intended('home');

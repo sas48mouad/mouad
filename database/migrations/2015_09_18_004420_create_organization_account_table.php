@@ -10,9 +10,9 @@ class CreateOrganizationAccountTable extends Migration {
 		Schema::create('organization_account', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->softDeletes();
 			$table->string('username');
 			$table->string('password', 60);
+			$table->string('email', 255);
 			$table->integer('creator_admin')->unsigned();
 		});
 	}
